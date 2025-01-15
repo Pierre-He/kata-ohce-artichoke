@@ -27,6 +27,17 @@ def test_greeting_never_returns_none(hours):
     """
     assert Greeter(StubClock(hour=21)).greet() is not None
 
+class StubInteractor:
+    def __init__(self, inputData):
+        self.inputData = inputData
+        self.messages = []
+
+    def read_input(self):
+        return self.inputData.pop(0)
+
+    def print_message(self, message):
+        self.messages.append(message)
+
 
 def test_ohce_main_loop():
     """
@@ -40,6 +51,9 @@ def test_ohce_main_loop():
     - oto
     - That was a palindrome!
     """
+    ui = UI(StubInteractor(["hello", "oto", "quit"]))
+    ui.main_loop()
+    assert ui.interactor.messages == ["olleh", "oto", "That was a palindrome!"]
     
     
     
