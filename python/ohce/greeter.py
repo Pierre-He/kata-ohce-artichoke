@@ -1,12 +1,5 @@
 from datetime import datetime
 
-class FakeClock:
-    def __init__(self, hour):
-        self.hour = hour
-    
-    def current_hour(self):
-        return self.hour
-
 class SystemClock:
     def current_hour(self):
         now = datetime.now()
@@ -14,8 +7,8 @@ class SystemClock:
 
 
 class Greeter:
-    def __init__(self, hour=None):
-        self.clock = SystemClock() if hour is None else FakeClock(hour)
+    def __init__(self, stubClock=None):
+        self.clock = SystemClock() if stubClock is None else stubClock
 
     def greet(self):
         current_hour = self.clock.current_hour()
