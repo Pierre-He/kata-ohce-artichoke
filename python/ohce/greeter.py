@@ -1,23 +1,21 @@
 from datetime import datetime
 
-class Clock:
-    def __init__(self, clock):
-        self.clock = clock
+class FakeClock:
+    def __init__(self, hour):
+        self.hour = hour
     
     def current_hour(self):
-        return self.clock.hour
+        return self.hour
 
-class SystemClock(Clock):
-    def __init__(self, clock=None):
-        super().__init__(datetime.now())
-        
+class SystemClock:
     def current_hour(self):
-        return self.clock
+        now = datetime.now()
+        return now.hour
 
 
 class Greeter:
-    def __init__(self, clock=None):
-        self.clock = SystemClock() if clock is None else Clock(clock)
+    def __init__(self, hour=None):
+        self.clock = SystemClock() if hour is None else FakeClock(hour)
 
     def greet(self):
         current_hour = self.clock.current_hour()
