@@ -1,18 +1,23 @@
 from datetime import datetime
 
 class Clock:
-    def current_hour(self, now):
-        pass
+    def __init__(self, clock):
+        self.clock = clock
+    
+    def current_hour(self):
+        return self.clock.hour
 
 class SystemClock(Clock):
-    def current_hour(self, now=None):
-        now = datetime.now()
-        return now.hour
+    def __init__(self, clock=None):
+        super().__init__(datetime.now())
+        
+    def current_hour(self):
+        return self.clock
 
 
 class Greeter:
     def __init__(self, clock=None):
-        self.clock = SystemClock() if clock is None else clock
+        self.clock = SystemClock() if clock is None else Clock(clock)
 
     def greet(self):
         current_hour = self.clock.current_hour()
